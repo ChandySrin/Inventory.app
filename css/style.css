@@ -10,9 +10,9 @@ body {
 }
 
 .sidebar {
-    min-height: 100vh;
+    min-height: 100%;
     width: 250px;
-    background: linear-gradient(180deg, #0000ff, #0040ff);
+    background: linear-gradient(180deg, #3b82f6, #3b82f6);
     color: white;
     padding: 20px;
 }
@@ -43,12 +43,12 @@ body {
 
 .user {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     gap: 1rem;
     margin-right: 2rem;
 }
 
-.user i{
+.user i {
     font-size: 1.4rem;
 }
 
@@ -56,4 +56,38 @@ body {
     height: 30px;
     width: 30px;
     border-radius: 50px;
+}
+
+.cards {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    padding: 20px;
+    color: white;
+    border-radius: 8px;
+}
+
+.orange {
+    background: #f59e0b;
+}
+
+.red {
+    background: #ef4444;
+}
+
+.blue {
+    background: #3b82f6;
+}
+
+.green {
+    background: #22c55e;
+}
+
+.col-md-6{
+    margin: 10px 0;
 }
