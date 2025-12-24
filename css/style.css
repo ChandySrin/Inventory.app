@@ -46,16 +46,21 @@ body {
     justify-content: flex-end;
     gap: 1rem;
     margin-right: 2rem;
+    margin-top: 1.5rem;
 }
 
 .user i {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
 }
 
 .user img {
     height: 30px;
     width: 30px;
     border-radius: 50px;
+}
+
+.user p{
+    font-size: 14px;
 }
 
 .cards {
