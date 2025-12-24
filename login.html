@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Login</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    }
+
+    /* Body Layout */
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f4f8;
+    }
+
+    /* Main Container */
+    .signup-container {
+      display: flex;
+      width: 80%;
+      max-width: 700px;
+      height: 580px;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .1);
+    }
+
+    /* Left Side - Background Image */
+    .left-side {
+      flex: 1;
+      background: url('https://img.freepik.com/premium-photo/store-manager-hands-tablet-mockup-business-app-inventory-communication-online-update-tech-internet-professional-shop-management-man-with-blank-advertising-screen_590464-107863.jpg') center/cover;
+      position: relative;
+      color: #fff;
+    }
+
+    .left-side::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(38, 0, 255, .75), #0000ff);
+    }
+
+    .left-side .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    /* Right Side - Form */
+    .right-side {
+      flex: 1;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Logo */
+    .logo {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 15px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo i {
+      color: #fff;
+      font-size: 50px;
+    }
+
+    /* Headings and Paragraphs */
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      color: #b1b1b1;
+      margin-bottom: 35px;
+    }
+
+    /* Form Groups */
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 45px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .form-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+
+    .toggle-password {
+      left: auto;
+      right: 15px;
+      cursor: pointer;
+    }
+
+    /* Error Styles */
+    .error {
+      border-color: #e74c3c !important;
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, .15);
+    }
+
+    .error-message {
+      display: none;
+      color: #e74c3c;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .shake {
+      animation: shake .4s;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0)
+      }
+
+      25% {
+        transform: translateX(-5px)
+      }
+
+      50% {
+        transform: translateX(5px)
+      }
+
+      75% {
+        transform: translateX(-5px)
+      }
+
+      100% {
+        transform: translateX(0)
+      }
+    }
+
+    /* Button */
+    .login-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 48px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* Mobile Responsive */
+    @media(max-width:768px) {
+      .signup-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .left-side {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="signup-container">
+    <!-- Left Side - Welcome Section -->
+    <div class="left-side">
+      <div class="content">
+        <h2 style="font-size: 39px;">Welcome to Inventory</h2>
+      </div>
+    </div>
+
+    <!-- Right Side - Login Form -->
+    <div class="right-side">
+      <div class="logo">
+        <i class="fas fa-cubes"></i>
+      </div>
+      <h1>Login</h1>
+      <p>Access your dashboard</p>
+
+      <form onsubmit="return userLogin()">
+        <!-- Username Field -->
+        <div class="form-group">
+          <i class="fas fa-user-tag"></i>
+          <input type="text" id="username" placeholder="Username">
+          <div class="error-message" id="usernameError">
+            <i class="fas fa-circle-exclamation"></i> Username is required
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <i class="fas fa-user"></i>
+          <input type="email" id="email" placeholder="Email">
+          <div class="error-message" id="emailError">
+            <i class="fas fa-circle-exclamation"></i> Invalid email address
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <input type="password" id="password" placeholder="Password">
+          <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+          <div class="error-message" id="passwordError">
+            <i class="fas fa-circle-exclamation"></i> Password must be at least 6 characters
+          </div>
+        </div>
+
+        <button class="login-btn">login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Function to handle user login validation
+    function userLogin() {
+      // Get form elements
+      const username = document.getElementById("username");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+
+      // Get error message elements
+      const usernameError = document.getElementById("usernameError");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+
+      // Reset error states
+      usernameError.style.display = "none";
+      emailError.style.display = "none";
+      passwordError.style.display = "none";
+
+      username.classList.remove("error", "shake");
+      email.classList.remove("error", "shake");
+      password.classList.remove("error", "shake");
+
+      let valid = true;
+
+      // Validate username
+      if (username.value.trim() === "") {
+        usernameError.style.display = "block";
+        username.classList.add("error", "shake");
+        valid = false;
+      }
+
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value)) {
+        emailError.style.display = "block";
+        email.classList.add("error", "shake");
+        valid = false;
+      }
+
+      // Validate password
+      if (password.value.length < 6) {
+        passwordError.style.display = "block";
+        password.classList.add("error", "shake");
+        valid = false;
+      }
+
+      // If valid, proceed to dashboard
+      if (valid) {
+        // Save username to localStorage
+        localStorage.setItem("username", username.value);
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+      }
+
+      return false; // Prevent form submission
+    }
+
+    // Function to toggle password visibility
+    function togglePassword() {
+      const passwordField = document.getElementById("password");
+      passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+
+</html>
