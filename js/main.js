@@ -90,6 +90,32 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeSampleData();
 });
 
+// Export function
+function exportToCSV(data, filename) {
+    const csv = convertArrayToCSV(data);
+    const link = document.createElement('a');
+    link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    link.download = filename;
+    link.click();
+}
+
+// function convertArrayToCSV(data) {
+//     if (!data || data.length === 0) return '';
+
+//     const headers = Object.keys(data[0]);
+//     let csv = headers.join(',') + '\n';
+
+//     data.forEach(row => {
+//         const values = headers.map(header => {
+//             const value = row[header];
+//             // Escape quotes in values
+//             return typeof value === 'string' && value.includes(',') ? `"${value}"` : value;
+//         });
+//         csv += values.join(',') + '\n';
+//     });
+
+//     return csv;
+// }
 
 
 
