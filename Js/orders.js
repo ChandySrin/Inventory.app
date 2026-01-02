@@ -1,3 +1,7 @@
+/* ========================
+   Orders JS - Orders Management
+   ======================== */
+
 let ordersData = [];
 let productsData = [];
 
@@ -12,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Setup event listeners
     setupOrderListeners();
 });
+
 
 function setupOrderListeners() {
     // Search functionality
@@ -118,7 +123,6 @@ function displayOrders() {
     }).join('');
 }
 
-
 function filterOrders() {
     const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
     const statusFilter = document.getElementById('statusFilter').value;
@@ -181,7 +185,7 @@ function saveOrder() {
         return;
     }
 
-    const totalPrice = product.price * quantity;
+    const totalPrice = parseFloat(product.price) * parseInt(quantity);
 
     if (editId) {
         // Update existing order
@@ -221,6 +225,10 @@ function saveOrder() {
     modal.hide();
 }
 
+function generateOrderId() {
+    return 'ORD-' + Math.floor(Math.random() * 100000);
+}
+
 function editOrder(orderId) {
     const order = ordersData.find(o => o.id === orderId);
     if (!order) return;
@@ -230,7 +238,6 @@ function editOrder(orderId) {
     document.getElementById('orderStatus').value = order.status;
     document.getElementById('orderForm').dataset.editId = orderId;
     document.getElementById('orderModalLabel').textContent = 'Edit Order';
-
 
     const modal = new bootstrap.Modal(document.getElementById('orderModal'));
     modal.show();
@@ -254,5 +261,8 @@ function getStatusBadge(status) {
     };
 
     const badgeClass = statusMap[status] || 'secondary';
-    return `<span class="badge badge-${badgeClass}">${status}</span>`;
+    return `<span class="badge bg-${badgeClass}">${status}</span>`;
+
 }
+window.editOrder = editOrder;
+window.deleteOrder = deleteOrder;

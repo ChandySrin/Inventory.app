@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    loaDashboardStats();
+    loadDashboardStats();
     loadRecentActivity();
 });
 
 // Reload stats 
 document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'visible') {
-        loaDashboardStats();
+        loadDashboardStats();
         loadRecentActivity();
     }
 });
 
-function loaDashboardStats() {
+function loadDashboardStats() {
     // Get data from storage
     const products = getStorageData('products') || [];
     const suppliers = getStorageData('suppliers') || [];
@@ -46,7 +46,7 @@ function loadRecentActivity() {
     const recentOrders = orders.slice(-5).reverse();
 
     table.innerHTML = recentOrders.map(order => {
-        const product = products.find(p => p.id === order.productId);
+        const product = products.find(p => p.id.toString() === order.productId.toString());
         const date = new Date(order.date).toLocaleDateString();
         const statusBadge = getStatusBadge(order.status);
 
@@ -70,5 +70,5 @@ function getStatusBadge(status) {
     };
 
     const badgeClass = statusMap[status] || 'secondary';
-    return `<span class="badge badge-${badgeClass}">${status}</span>`;
+    return `<span class="badge bg-${badgeClass}">${status}</span>`;
 }

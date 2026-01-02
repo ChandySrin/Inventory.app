@@ -37,7 +37,7 @@ function setupUserListeners() {
     }
 
     // Save user button
-    const saveBtn = document.getElementById('saveBtn');
+    const saveBtn = document.getElementById('saveUserBtn');
     if (saveBtn) {
         saveBtn.addEventListener('click', saveUser);
     }
@@ -69,13 +69,14 @@ function displayUsers() {
 
     if (usersData.length === 0) {
         table.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No users found</td></tr>';
+        return;
     }
 
     table.innerHTML = usersData.map(user => {
-        const statusBadge = user.status == 'Active'
+        const statusBadge = user.status === 'Active'
             ? '<span class="badge bg-success">Active</span>'
             : '<span class="badge bg-secondary">Inactive</span>';
-        const joined = new DataTransfer(user.joined).toLocaleDateString();
+        const joined = new Date(user.joined).toLocaleDateString();
 
         return `
             <tr>
@@ -86,12 +87,12 @@ function displayUsers() {
                 <td>${statusBadge}</td>
                 <td>${joined}</td>
                 <td>
-                    <button class="btn btn-sm btn-warning" onlick="editUser('${user.id}')">
+                    <button class="btn btn-sm btn-warning" onclick="editUser('${user.id}')">
                         <i class="bi bi-pencil"></i>
                     </button>
-                    <button class="btn btn-sm btn-danger" onlick="deleteUser('${user.id}')">
+                    <button class="btn btn-sm btn-danger" onclick="deleteUser('${user.id}')">
                         <i class="bi bi-trash"></i>
-                    </butoon>
+                    </button>
                 </td>
             </tr>
         `;
@@ -100,8 +101,8 @@ function displayUsers() {
 
 function filterUsers() {
     const searchTerm = document.getElementById('searchUser').value.toLowerCase();
-    const roleFilter = document.getElementById('roleFiter').value;
-    const statusFilter = document.getElementById('statusFiter').value;
+    const roleFilter = document.getElementById('roleFilter').value;
+    const statusFilter = document.getElementById('statusFilter').value;
 
     const filtered = usersData.filter(user => {
         const matchesSearch =
@@ -141,7 +142,7 @@ function filterUsers() {
                 </td>
             </tr>
         `;
-    }).joined('');
+    }).join('');
 }
 
 function saveUser() {
@@ -190,13 +191,13 @@ function saveUser() {
         }
 
         const newUser = {
-            id: generateUserID(),
+            id: generateId('users'),
             name,
             email,
             password,
             role,
             status,
-            joined: new DataTransfer().toISOString()
+            joined: new Date().toISOString()
         };
         usersData.push(newUser);
         showNotification('User created successfully!', 'success');

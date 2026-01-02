@@ -23,8 +23,6 @@ function initializeData() {
 
     if (!localStorage.getItem("orders") || JSON.parse(localStorage.getItem("orders")).length === 0) {
         const sampleOrders = [
-            { id: "1", productId: "1", date: new Date().toISOString(), status: "Pending", quantity: 2 },
-            { id: "2", productId: "2", date: new Date().toISOString(), status: "Confirmed", quantity: 5 }
         ];
         localStorage.setItem("orders", JSON.stringify(sampleOrders));
     }
@@ -144,41 +142,6 @@ saveOrderBtn.addEventListener("click", () => {
     renderOrders();
 });
 
-// 4. DELETE ORDER
-function deleteOrder(index) {
-    if (confirm("Delete this order?")) {
-        orders.splice(index, 1);
-        localStorage.setItem("orders", JSON.stringify(orders));
-        renderOrders();
-    }
-}
-// Export function
-// function exportToCSV(data, filename) {
-//     const csv = convertArrayToCSV(data);
-//     const link = document.createElement('a');
-//     link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-//     link.download = filename;
-//     link.click();
-// }
-
-// function convertArrayToCSV(data) {
-//     if (!data || data.length === 0) return '';
-
-//     const headers = Object.keys(data[0]);
-//     let csv = headers.join(',') + '\n';
-
-//     data.forEach(row => {
-//         const values = headers.map(header => {
-//             const value = row[header];
-//             // Escape quotes in values
-//             return typeof value === 'string' && value.includes(',') ? `"${value}"` : value;
-//         });
-//         csv += values.join(',') + '\n';
-//     });
-
-//     return csv;
-// }
-
 // 5. FILTERS
 searchOrder.addEventListener("input", () => {
     const val = searchOrder.value.toLowerCase();
@@ -240,7 +203,6 @@ function formatCurrency(value) {
 }
 
 
-
 // Get data from localStorage or return empty array
 function getStorageData(key) {
     const data = localStorage.getItem(key);
@@ -287,8 +249,8 @@ function initializeSampleData() {
     }
 }
 
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "index.html";
+}
 
-// Call on page load
-document.addEventListener('DOMContentLoaded', function () {
-    initializeSampleData();
-});
