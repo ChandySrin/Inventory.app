@@ -1,0 +1,73 @@
+/* Custom Professional Overrides */
+:root {
+    --primary-color: #0d6efd;
+    --sidebar-bg: #f8f9fa;
+    --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f7f6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #343a40;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.nav-link {
+    color: #495057;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 4px 12px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Card & Table Styling */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: #6c757d;
+    border-bottom: 1px solid #edf2f9;
+    padding: 15px;
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+}
+
+/* Badge Refinement */
+.badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+}
