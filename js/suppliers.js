@@ -69,7 +69,7 @@ function displaySuppliers() {
     `).join('');
 }
 function filterSuppliers() {
-    const searchValue = document.getElementById('searchSupplier')?.value.toLowerCase()  || '';
+    const searchValue = document.getElementById('searchSupplier')?.value.toLowerCase() || '';
 
     const filtered = suppliersData.filter(supplier =>
         supplier.name.toLowerCase().includes(searchValue) ||
@@ -108,13 +108,14 @@ function saveSupplier() {
     const editId = form.dataset.editId;
 
     const supplierData = {
-        id: editId ? editId : generateId(),
+        id: editId || generateId(),
         name: document.getElementById('supplierName').value,
         contact: document.getElementById('contactPerson').value,
         email: document.getElementById('supplierEmail').value,
         phone: document.getElementById('supplierPhone').value,
         city: document.getElementById('supplierCity').value
     };
+
     if (editId) {
         // Update existing supplier
         const index = suppliersData.findIndex(s => s.id === editId);
