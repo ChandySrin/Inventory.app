@@ -84,11 +84,11 @@ document.getElementById('exportBtn').addEventListener('click', () => {
     html2pdf().set(pdfOptions).from(reportSection).save();
 
     // --- Export Excel ---
-    // const table = reportSection.querySelector('table');
-    // if (table) {
-    //     const wb = XLSX.utils.table_to_book(table, { sheet: "Stock Report" });
-    //     XLSX.writeFile(wb, "Stock_Inventory_Report.xlsx");
-    // }
+    const table = reportSection.querySelector('table');
+    if (table) {
+        const wb = XLSX.utils.table_to_book(table, { sheet: "Stock Report" });
+        XLSX.writeFile(wb, "Stock_Inventory_Report.xlsx");
+    }
 });
 
 
