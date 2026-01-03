@@ -1,6 +1,3 @@
-/* ========================
-   Products JS - Products Management
-   ======================== */
 
 let productsData = [];
 

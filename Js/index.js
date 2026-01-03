@@ -1,6 +1,3 @@
-/* ========================
-   Authentication JS - Login Logic
-======================== */
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
@@ -12,10 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', handleLogin);
 });
 
-/* ========================
-   Functions
-======================== */
-
+//    Functions
 function initUsers() {
     if (localStorage.getItem('users')) return;
 
@@ -100,9 +94,7 @@ function clearAlert() {
 function getInput(id) {
     return document.getElementById(id);
 }
-/* ========================
-   Dashboard JS - Inventory Management
-======================== */
+//  Dashboard JS - Inventory Management
 document.addEventListener('DOMContentLoaded', () => {
   const passwordInput = document.getElementById('password');
   const togglePassword = document.getElementById('togglePassword');

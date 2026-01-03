@@ -1,6 +1,3 @@
-/* ========================
-   Orders JS - Orders Management
-   ======================== */
 
 let ordersData = [];
 let productsData = [];
@@ -130,7 +127,7 @@ function filterOrders() {
     const filtered = ordersData.filter(order => {
         const product = productsData.find(p => p.id === order.productId);
         const productName = product ? product.name.toLowerCase() : '';
-        const matchesSearch = productName.includes(searchTerm) || order.id.includes(searchTerm);
+        const matchesSearch = productName.includes(searchTerm) || String(order.id).includes(searchTerm);
         const matchesStatus = !statusFilter || order.status === statusFilter;
         return matchesSearch && matchesStatus;
     });
@@ -189,7 +186,7 @@ function saveOrder() {
 
     if (editId) {
         // Update existing order
-        const orderIndex = ordersData.findIndex(o => o.id === editId);
+        const orderIndex = ordersData.findIndex(o => o.id == editId);
         if (orderIndex > -1) {
             ordersData[orderIndex] = {
                 ...ordersData[orderIndex],
@@ -211,7 +208,6 @@ function saveOrder() {
             date: new Date().toISOString()
         };
         ordersData.push(newOrder);
-        showNotification('Order created successfully!', 'success');
     }
 
     // Save to storage
@@ -226,11 +222,15 @@ function saveOrder() {
 }
 
 function generateOrderId() {
-    return 'ORD-' + Math.floor(Math.random() * 100000);
+    if (ordersData.length === 0) {
+        return 1;
+    }
+    const maxId = Math.max(...ordersData.map(order => Number(order.id)));
+    return maxId + 1;
 }
 
 function editOrder(orderId) {
-    const order = ordersData.find(o => o.id === orderId);
+    const order = ordersData.find(o => o.id == orderId);
     if (!order) return;
 
     document.getElementById('orderProductId').value = order.productId;
@@ -245,7 +245,8 @@ function editOrder(orderId) {
 
 function deleteOrder(orderId) {
     if (confirm('Are you sure you want to delete this order?')) {
-        ordersData = ordersData.filter(o => o.id !== orderId);
+        ordersData = ordersData.filter(o => o.id != orderId);
+
         saveStorageData('orders', ordersData);
         displayOrders();
         showNotification('Order deleted successfully!', 'success');

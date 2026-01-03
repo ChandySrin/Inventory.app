@@ -1,6 +1,3 @@
-// =======================
-// INITIALIZATION
-// =======================
 
 // Initialize sample data if none exists
 function initializeData() {
