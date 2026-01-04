@@ -37,16 +37,17 @@ function loadStockReport() {
 
         // Stock status logic
         let status = 'In Stock';
-        let badge = 'badge-success';
+        let badge = 'bg-success';
 
         if (product.stock === 0) {
             status = 'Out of Stock';
-            badge = 'badge-danger';
+            badge = 'bg-danger';
         } else if (product.stock <= 10) {
             status = 'Low Stock';
-            badge = 'badge-warning';
+            badge = 'bg-warning text-dark';
             lowStockCount++;
         }
+
 
         totalValue += product.stock * product.price;
 

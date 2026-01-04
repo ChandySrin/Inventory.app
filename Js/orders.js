@@ -1,14 +1,11 @@
-/* ========================
-   Orders JS - Orders Management
-   ======================== */
 
 let ordersData = [];
 let productsData = [];
 
 document.addEventListener('DOMContentLoaded', function () {
     // Load orders and products from storage
-    ordersData = getStorageData('orders');
-    productsData = getStorageData('products');
+    ordersData = getStorageData('orders') || [];
+    productsData = getStorageData('products') || [];
 
     // Display orders in table
     displayOrders();
@@ -130,7 +127,7 @@ function filterOrders() {
     const filtered = ordersData.filter(order => {
         const product = productsData.find(p => p.id === order.productId);
         const productName = product ? product.name.toLowerCase() : '';
-        const matchesSearch = productName.includes(searchTerm) || order.id.includes(searchTerm);
+        const matchesSearch = productName.includes(searchTerm) || String(order.id).includes(searchTerm);
         const matchesStatus = !statusFilter || order.status === statusFilter;
         return matchesSearch && matchesStatus;
     });
@@ -142,7 +139,7 @@ function filterOrders() {
     }
 
     table.innerHTML = filtered.map(order => {
-        const product = productsData.find(p => p.id === order.productId);
+        const product = productsData.find(p => p.id == order.productId);
         const productName = product ? product.name : 'Unknown Product';
         const statusBadge = getStatusBadge(order.status);
         const date = new Date(order.date).toLocaleDateString();
@@ -179,7 +176,7 @@ function saveOrder() {
         return;
     }
 
-    const product = productsData.find(p => p.id === productId);
+    const product = productsData.find(p => p.id == productId);
     if (!product) {
         showNotification('Selected product not found', 'danger');
         return;
@@ -188,8 +185,8 @@ function saveOrder() {
     const totalPrice = parseFloat(product.price) * parseInt(quantity);
 
     if (editId) {
-        // Update existing order
-        const orderIndex = ordersData.findIndex(o => o.id === editId);
+
+        const orderIndex = ordersData.findIndex(o => o.id == editId);
         if (orderIndex > -1) {
             ordersData[orderIndex] = {
                 ...ordersData[orderIndex],
@@ -201,51 +198,58 @@ function saveOrder() {
             showNotification('Order updated successfully!', 'success');
         }
     } else {
-        // Create new order
+    
         const newOrder = {
-            id: generateOrderId(),
+            id: generateOrderId(),   // 1, 2, 3, ...
             productId,
             quantity: parseInt(quantity),
             totalPrice,
             status,
             date: new Date().toISOString()
         };
-        ordersData.push(newOrder);
+
+        ordersData.push(newOrder); 
         showNotification('Order created successfully!', 'success');
     }
 
-    // Save to storage
     saveStorageData('orders', ordersData);
-
-    // Refresh display
     displayOrders();
 
-    // Close modal
     const modal = bootstrap.Modal.getInstance(document.getElementById('orderModal'));
     modal.hide();
 }
 
+
 function generateOrderId() {
-    return 'ORD-' + Math.floor(Math.random() * 100000);
+    if (!ordersData || ordersData.length === 0) {
+        return 1;
+    }
+
+    const ids = ordersData
+        .map(o => Number(o.id))
+        .filter(id => !isNaN(id));
+
+    return ids.length ? Math.max(...ids) + 1 : 1;
 }
 
 function editOrder(orderId) {
-    const order = ordersData.find(o => o.id === orderId);
+    const order = ordersData.find(o => o.id === Number(orderId));
     if (!order) return;
 
     document.getElementById('orderProductId').value = order.productId;
     document.getElementById('orderQuantity').value = order.quantity;
     document.getElementById('orderStatus').value = order.status;
-    document.getElementById('orderForm').dataset.editId = orderId;
+    document.getElementById('orderForm').dataset.editId = order.id;
     document.getElementById('orderModalLabel').textContent = 'Edit Order';
 
-    const modal = new bootstrap.Modal(document.getElementById('orderModal'));
-    modal.show();
+    new bootstrap.Modal(document.getElementById('orderModal')).show();
 }
+
 
 function deleteOrder(orderId) {
     if (confirm('Are you sure you want to delete this order?')) {
-        ordersData = ordersData.filter(o => o.id !== orderId);
+        ordersData = ordersData.filter(o => o.id !== Number(orderId));
+
         saveStorageData('orders', ordersData);
         displayOrders();
         showNotification('Order deleted successfully!', 'success');

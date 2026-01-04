@@ -1,6 +1,3 @@
-/* ========================
-   Suppliers JS - Suppliers Management
-   ======================== */
 
 let suppliersData = [];
 

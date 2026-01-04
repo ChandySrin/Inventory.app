@@ -1,6 +1,3 @@
-/* ========================
-   Dashboard JS - Dashboard Statistics
-   ======================== */
 
 document.addEventListener('DOMContentLoaded', function () {
     loadDashboardStats();
@@ -35,29 +32,32 @@ function loadDashboardStats() {
 }
 
 function loadRecentActivity() {
-    const table = document.getElementById('recentActivityTable');
-    if (!table) return;
+    const tableBody = document.getElementById('recentActivityTable');
+    if (!tableBody) return;
 
     const orders = getStorageData('orders');
     const products = getStorageData('products');
 
-    if (orders.length === 0) {
-        table.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No recent activity</td></tr>';
+    if (!orders || orders.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No recent activity</td></tr>';
         return;
     }
 
-    // Get last 5 orders
     const recentOrders = orders.slice(-5).reverse();
 
-    table.innerHTML = recentOrders.map(order => {
+    tableBody.innerHTML = recentOrders.map(order => {
         const product = products.find(p => p.id === order.productId);
+        const productName = product ? product.name : 'Unknown';
         const date = new Date(order.date).toLocaleDateString();
+
+        const typeBadge = `<span class="badge rounded-pill bg-info text-dark">Order</span>`;
+
         const statusBadge = getStatusBadge(order.status);
 
         return `
             <tr>
-                <td>${product ? product.name : 'Unknown'}</td>
-                <td><span class="badge badge-info">Order</span></td>
+                <td>${productName}</td>
+                <td>${typeBadge}</td>
                 <td>${date}</td>
                 <td>${statusBadge}</td>
             </tr>
@@ -67,12 +67,12 @@ function loadRecentActivity() {
 
 function getStatusBadge(status) {
     const statusMap = {
-        'Pending': 'warning',
-        'Confirmed': 'info',
-        'Shipped': 'primary',
-        'Delivered': 'success'
+        'Pending': 'bg-warning text-dark',
+        'Confirmed': 'bg-info text-dark',
+        'Shipped': 'bg-primary',
+        'Delivered': 'bg-success'
     };
-
-    const badgeClass = statusMap[status] || 'secondary';
-    return `<span class="badge badge-${badgeClass}">${status}</span>`;
+    const badgeClass = statusMap[status] || 'bg-secondary';
+    return `<span class="badge rounded-pill ${badgeClass}">${status}</span>`;
 }
+

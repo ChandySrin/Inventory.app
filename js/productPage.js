@@ -1,6 +1,3 @@
-/* ========================
-   Products JS - Products Management
-   ======================== */
 
 let productsData = [];
 
@@ -71,7 +68,13 @@ function displayProducts() {
 
     table.innerHTML = productsData.map(product => {
         const supplier = getSupplierName(product.supplier);
-        const stockStatus = product.stock <= 10 ? 'danger' : product.stock <= 20 ? 'warning' : 'success';
+        const stockStatus =
+            product.stock <= 10
+                ? 'bg-danger'
+                : product.stock <= 20
+                    ? 'bg-warning text-dark'
+                    : 'bg-success';
+
         const stockBadge = product.stock <= 10 ? 'Low Stock' : product.stock <= 20 ? 'Medium' : 'Good';
 
         return `
@@ -81,7 +84,7 @@ function displayProducts() {
                 <td>${product.category}</td>
                 <td>${formatCurrency(product.price)}</td>
                 <td>
-                    <span class="badge badge-${stockStatus}">${product.stock} (${stockBadge})</span>
+                    <span class="badge ${stockStatus}">${product.stock} (${stockBadge})</span>
                 </td>
                 <td>${supplier}</td>
                 <td>
@@ -115,7 +118,12 @@ function filterProducts() {
 
     table.innerHTML = filtered.map(product => {
         const supplier = getSupplierName(product.supplier);
-        const stockStatus = product.stock <= 10 ? 'danger' : product.stock <= 20 ? 'warning' : 'success';
+        const stockStatus =
+            product.stock <= 10
+                ? 'bg-danger'
+                : product.stock <= 20
+                    ? 'bg-warning text-dark'
+                    : 'bg-success';
         const stockBadge = product.stock <= 10 ? 'Low Stock' : product.stock <= 20 ? 'Medium' : 'Good';
 
         return `
