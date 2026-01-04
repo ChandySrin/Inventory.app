@@ -105,7 +105,7 @@ function saveSupplier() {
     const editId = form.dataset.editId;
 
     const supplierData = {
-        id: editId || generateId(),
+        id: editId || generateId('suppliers'), // <- call generateId here
         name: document.getElementById('supplierName').value,
         contact: document.getElementById('contactPerson').value,
         email: document.getElementById('supplierEmail').value,
@@ -114,13 +114,9 @@ function saveSupplier() {
     };
 
     if (editId) {
-        // Update existing supplier
         const index = suppliersData.findIndex(s => s.id === editId);
-        if (index !== -1) {
-            suppliersData[index] = supplierData;
-        }
+        suppliersData[index] = supplierData;
     } else {
-        // Add new supplier
         suppliersData.push(supplierData);
     }
 
@@ -128,7 +124,8 @@ function saveSupplier() {
     displaySuppliers();
 
     // Close modal
-    const modal = bootstrap.Modal.getInstance(document.getElementById('supplierModal'));
+    const modalEl = document.getElementById('supplierModal');
+    const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
     modal.hide();
 
     form.reset();
@@ -136,6 +133,7 @@ function saveSupplier() {
 
     showNotification(editId ? 'Supplier updated successfully!' : 'Supplier added successfully!');
 }
+
 
 function editSupplier(id) {
     const supplier = suppliersData.find(s => s.id === id);
