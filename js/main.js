@@ -32,7 +32,6 @@ if (document.readyState === "loading") {
     initializeData();
 }
 
-<<<<<<< HEAD
 // ORDERS LOGIC
 
 const ordersTable = document.getElementById("ordersTable");
@@ -156,8 +155,6 @@ statusFilter.addEventListener("change", () => {
 // INITIALIZE PAGE
 populateDropdowns();
 renderOrders();
-=======
->>>>>>> 63b197aaf7fa9dba0f2a475d10903b0f3be32949
 
 
 
