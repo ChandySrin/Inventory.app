@@ -32,9 +32,7 @@ if (document.readyState === "loading") {
     initializeData();
 }
 
-// =======================
 // ORDERS LOGIC
-// =======================
 
 const ordersTable = document.getElementById("ordersTable");
 const saveOrderBtn = document.getElementById("saveOrderBtn");
@@ -248,6 +246,6 @@ function initializeSampleData() {
 
 function logout() {
     localStorage.removeItem("isLoggedIn");
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 }
 

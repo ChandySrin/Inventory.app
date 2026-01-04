@@ -77,7 +77,7 @@ function handleLogin(e) {
     const user = users.find(u => u.email === email && u.password === password);
 
     if (!user) {
-        showAlert('Invalid email or password. Try admin@test.com / password123');
+        showAlert('Invalid email or password. Try admin@email.com / admin123');
         getInput('password').value = '';
         return;
     }
@@ -90,7 +90,7 @@ function handleLogin(e) {
         localStorage.removeItem('rememberEmail');
     }
 
-    window.location.href = 'dashboard.html';
+    window.location.href = 'html/Dashboard.html';
 }
 
 function loadRememberedEmail() {

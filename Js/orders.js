@@ -189,16 +189,19 @@ function saveOrder() {
         const orderIndex = ordersData.findIndex(o => o.id == editId);
         if (orderIndex > -1) {
             ordersData[orderIndex] = {
-                ...ordersData[orderIndex],
-                productId,
+                id: editId,
+                productId: productId,
                 quantity: parseInt(quantity),
-                totalPrice,
-                status
+                status: status,
+                date: date
             };
-            showNotification('Order updated successfully!', 'success');
+
+            saveStorageData('orders', ordersData);
+            displayOrders();
         }
+
     } else {
-    
+
         const newOrder = {
             id: generateOrderId(),   // 1, 2, 3, ...
             productId,
@@ -208,7 +211,7 @@ function saveOrder() {
             date: new Date().toISOString()
         };
 
-        ordersData.push(newOrder); 
+        ordersData.push(newOrder);
         showNotification('Order created successfully!', 'success');
     }
 
