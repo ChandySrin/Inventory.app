@@ -17,8 +17,8 @@ function initUsers() {
         {
             id: '1',
             name: 'Admin User',
-            email: 'admin@test.com',
-            password: 'password123',
+            email: 'admin@email.com',
+            password: 'admin123',
             role: 'Admin',
             status: 'Active',
             joined: new Date().toISOString()
@@ -26,9 +26,36 @@ function initUsers() {
         {
             id: '2',
             name: 'Manager User',
-            email: 'manager@test.com',
-            password: 'password123',
+            email: 'manager@email.com',
+            password: 'manager123',
             role: 'Manager',
+            status: 'Active',
+            joined: new Date().toISOString()
+        },
+        {
+            id: '3',
+            name: 'Admin User',
+            email: 'mary@gmail.com',
+            password: '221199',
+            role: 'Admin',
+            status: 'Active',
+            joined: new Date().toISOString()
+        },
+        {
+            id: '4',
+            name: 'Admin User',
+            email: 'chandy@gmail.com',
+            password: 'chandy123',
+            role: 'Admin',
+            status: 'Active',
+            joined: new Date().toISOString()
+        },
+        {
+            id: '5',
+            name: 'Admin User',
+            email: 'mesa@gmail.com',
+            password: 'mesasmos',
+            role: 'Admin',
             status: 'Active',
             joined: new Date().toISOString()
         }
@@ -96,14 +123,14 @@ function getInput(id) {
 }
 //  Dashboard JS - Inventory Management
 document.addEventListener('DOMContentLoaded', () => {
-  const passwordInput = document.getElementById('password');
-  const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
 
-  togglePassword.addEventListener('click', () => {
-    const isPassword = passwordInput.type === 'password';
+    togglePassword.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
 
-    passwordInput.type = isPassword ? 'text' : 'password';
-    togglePassword.classList.toggle('fa-eye');
-    togglePassword.classList.toggle('fa-eye-slash');
-  });
+        passwordInput.type = isPassword ? 'text' : 'password';
+        togglePassword.classList.toggle('fa-eye');
+        togglePassword.classList.toggle('fa-eye-slash');
+    });
 });
